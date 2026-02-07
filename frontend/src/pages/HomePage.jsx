@@ -1,11 +1,14 @@
-import { useChatStore } from "../store/useChatStore";
+import { useChatStore } from "../store/useChatStore.js";
+import { useAuthStore } from "../store/useAuthStore.js";
 
-import Sidebar from "../components/Sidebar";
-import NoChatSelected from "../components/NoChatSelected";
-import ChatContainer from "../components/ChatContainer";
+import Sidebar from "../components/SideBar.jsx";
+import NoChatSelected from "../components/NoChatSelected.jsx";
+import ChatContainer from "../components/ChatContainer.jsx";
+import AuthImagePattern from "../components/AuthImagePattern.jsx";
 
 const HomePage = () => {
   const { selectedUser } = useChatStore();
+  const { user } = useAuthStore();
 
   return (
     <div className="h-screen bg-base-200">
@@ -18,6 +21,13 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      {/* Display AuthImagePattern component when no user is selected */}
+      {!selectedUser && user && (
+        <div className="absolute inset-0 pointer-events-none">
+          <AuthImagePattern />
+        </div>
+      )}
     </div>
   );
 };
